@@ -8,7 +8,10 @@ import playlistRouter from './routes/playlistRoutes.js';
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Change to frontend origin in production
+    origin: [
+        'http://localhost:5173',
+        'https://spotifygen-frontend.vercel.app'
+    ],
     credentials: true
 }));
 app.use(express.json());
