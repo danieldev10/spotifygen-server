@@ -171,7 +171,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 
 router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
     const jwtToken = jwt.sign({ id: req.user.id }, process.env.JWT_KEY, { expiresIn: '3h' });
-    res.redirect(`http://localhost:5173/oauth-success?token=${jwtToken}`);
+    res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${jwtToken}`);
 });
 
 router.get('/spotify', passport.authenticate('spotify', {
@@ -185,7 +185,7 @@ router.get('/spotify', passport.authenticate('spotify', {
 
 router.get('/spotify/callback', passport.authenticate('spotify', { session: false }), (req, res) => {
     const jwtToken = jwt.sign({ id: req.user.id }, process.env.JWT_KEY, { expiresIn: '3h' });
-    res.redirect(`http://localhost:5173/oauth-success?token=${jwtToken}`);
+    res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${jwtToken}`);
 });
 
 export default router;
