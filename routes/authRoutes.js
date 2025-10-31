@@ -186,6 +186,7 @@ router.get('/spotify', passport.authenticate('spotify', {
 router.get('/spotify/callback', passport.authenticate('spotify', { session: false }), (req, res) => {
     const jwtToken = jwt.sign({ id: req.user.id }, process.env.JWT_KEY, { expiresIn: '3h' });
     // res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${jwtToken}`);
+    const frontendURL = process.env.FRONTEND_URL || 'https://spotifygen-frontend.vercel.app';
     const htmlResponse = `
       <!DOCTYPE html>
       <html>
@@ -193,7 +194,7 @@ router.get('/spotify/callback', passport.authenticate('spotify', { session: fals
           <title>Redirecting...</title>
           <script>
             localStorage.setItem('token', '${jwtToken}');
-            window.location.href = '/';
+            window.location.href = '${frontendURL}/';
           </script>
         </head>
         <body>
