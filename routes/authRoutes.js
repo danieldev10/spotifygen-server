@@ -185,7 +185,23 @@ router.get('/spotify', passport.authenticate('spotify', {
 
 router.get('/spotify/callback', passport.authenticate('spotify', { session: false }), (req, res) => {
     const jwtToken = jwt.sign({ id: req.user.id }, process.env.JWT_KEY, { expiresIn: '3h' });
-    res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${jwtToken}`);
+    // res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${jwtToken}`);
+    const htmlResponse = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Redirecting...</title>
+          <script>
+            localStorage.setItem('token', '${jwtToken}');
+            window.location.href = '/';
+          </script>
+        </head>
+        <body>
+          <p>Redirecting to the app...</p>
+        </body>
+      </html>
+    `;
+    res.send(htmlResponse);
 });
 
 export default router;
