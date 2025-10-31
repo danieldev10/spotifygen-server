@@ -194,7 +194,7 @@ router.get('/spotify/callback', passport.authenticate('spotify', { session: fals
           <title>Redirecting...</title>
           <script>
             localStorage.setItem('token', '${jwtToken}');
-            window.location.href = '${frontendURL}/';
+            window.location.href = '${frontendURL}/home';
           </script>
         </head>
         <body>
